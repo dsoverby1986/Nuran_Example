@@ -1,0 +1,27 @@
+﻿@model Nuran_Example.Models.ExampleViewModel
+
+@{
+    ViewData["Title"] = "Select Example";
+}
+
+<form asp-controller="Home" asp-action="TagHelperSelectExample">
+    <div class="row">
+        <div class="col-md-12">
+            <label>Select list using TagHelpers asp-for and asp-items</label>
+            <select asp-for="ThingId" asp-items="@Model.SelectList" class="form-control">
+                <option>--Select One--</option>
+            </select>
+        </div>
+    </div>
+    <input type="submit" value="Submit" class="btn btn-primary" />
+</form>
+
+@section scripts{ 
+    <script>
+        $(function () {
+            var selected = @Html.Raw(Json.Serialize(Model.ThingId));
+            if (selected)
+                alert(`The selected option from the TagHelper select list has a value of: ${selected}`);
+        });
+    </script>
+}
