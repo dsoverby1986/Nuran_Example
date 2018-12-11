@@ -15,19 +15,24 @@
     <script>
         $(function () {
             var selectListItems = JSON.parse('@Html.Raw(Json.Serialize(Model.SelectList))');
+            var selectContainer = document.getElementById('jsSelectListContainer');
             var select = document.createElement('select');
+            var label = document.createElement('label');
+
             select.name = 'ThingId';
             select.classList.add('form-control');
             select.appendChild(new Option('--Select One--', null, false, false));
+
             for (var i = 0; i < selectListItems.length; i++)
                 select.appendChild(new Option(selectListItems[i].text, selectListItems[i].value, false, selectListItems[i].selected));
-            var selectContainer = document.getElementById('jsSelectListContainer');
-            var label = document.createElement('label');
+            
             label.innerHTML = 'Select list using JS';
+
             selectContainer.appendChild(label);
             selectContainer.appendChild(select);
 
             var selected = @Html.Raw(Json.Serialize(Model.ThingId));
+
             if (selected)
                 alert(`The selected option from the JS select list has a value of: ${selected}`);
         });
